@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Client Map &amp; Collector Discovery - Waste2Worth</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1b4b3d",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#141e1b",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom map pulse animation */
+        @keyframes halo-pulse {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.2; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .animate-halo {
+            animation: halo-pulse 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111816] dark:text-gray-100 min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-[#eaf1ef] dark:border-gray-800 bg-background-light dark:bg-background-dark px-10 py-3 shadow-sm">
+<div class="flex items-center gap-4 text-primary dark:text-white">
+<div class="size-8 flex items-center justify-center rounded bg-primary/10 dark:bg-primary/30">
+<span class="material-symbols-outlined text-primary dark:text-white" style="font-size: 24px;">recycling</span>
+</div>
+<h2 class="text-[#111816] dark:text-white text-xl font-bold leading-tight tracking-tight">Waste2Worth</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-[#111816] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary dark:text-green-400 text-sm font-bold leading-normal" href="#">Find Collectors</a>
+<a class="text-[#111816] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">My Pickups</a>
+<a class="text-[#111816] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">Impact Reports</a>
+</div>
+<div class="flex items-center gap-4 border-l border-[#eaf1ef] dark:border-gray-700 pl-8">
+<div class="relative">
+<span class="material-symbols-outlined text-[#111816] dark:text-gray-200 cursor-pointer">notifications</span>
+<span class="absolute top-0 right-0 size-2 bg-red-500 rounded-full border border-white dark:border-background-dark"></span>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile picture showing a smiling professional" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBaS-EqLqmP9lUSHyYqN8IDe2WgUfbspOtdLv5k4K4bnXO7-5H1_Q9fh8umk0ahQM6hOkFVLt8GRTm2Lo2W4QvxPKBPTdJWskDpG7haFpg4vV8IWsFOSCKe41UNR52P0bNv4tKEu8G9KNRQsUIyqgJoL7nWL4Nx-aH9DkMtue5elyDpfRzVSCJUS40miGra0ULIOy2oXkQZUSq3RodxHO2kXjMSfPLF_8OmDJ168wSWmdHk8-aByyVKlUfsMP1S0BmeVcvxkK6tLsS1");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col lg:flex-row h-[calc(100vh-65px)] overflow-hidden">
+<!-- Sidebar: Filter & Discovery -->
+<aside class="w-full lg:w-[400px] flex flex-col border-r border-[#eaf1ef] dark:border-gray-800 bg-white dark:bg-background-dark overflow-y-auto shrink-0 z-20 shadow-xl">
+<!-- Filters Section -->
+<div class="p-6 space-y-6">
+<!-- Header & Search -->
+<div>
+<h3 class="text-[#111816] dark:text-white text-xl font-bold leading-tight mb-4">Discovery Filters</h3>
+<label class="flex flex-col w-full">
+<div class="flex w-full items-stretch rounded-lg h-12 bg-[#f0f4f3] dark:bg-[#1f2b27] border border-transparent focus-within:border-primary transition-all">
+<div class="flex items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined text-primary/70 dark:text-primary/90">search</span>
+</div>
+<input class="flex w-full bg-transparent border-none text-base text-[#111816] dark:text-white placeholder:text-gray-500 focus:ring-0 px-0" placeholder="Search collectors or area..." value=""/>
+</div>
+</label>
+</div>
+<!-- Radius Slider -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-sm font-semibold text-[#111816] dark:text-gray-200">Search Radius</span>
+<span class="text-sm font-bold text-primary dark:text-green-400">15 km</span>
+</div>
+<div class="relative h-2 w-full rounded-full bg-[#eaf1ef] dark:bg-gray-700">
+<div class="absolute top-0 left-0 h-full w-1/3 bg-primary rounded-full"></div>
+<div class="absolute top-1/2 left-1/3 -translate-y-1/2 -translate-x-1/2 size-4 bg-white border-2 border-primary rounded-full shadow cursor-pointer hover:scale-110 transition-transform"></div>
+</div>
+<div class="flex justify-between text-xs text-gray-400">
+<span>1km</span>
+<span>50km</span>
+</div>
+</div>
+<!-- Waste Type Chips -->
+<div>
+<label class="text-sm font-semibold text-[#111816] dark:text-gray-200 block mb-3">Waste Categories</label>
+<div class="flex flex-wrap gap-2">
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-primary text-white shadow-md transition-all hover:bg-primary/90">
+<span class="material-symbols-outlined text-[18px]">recycling</span>
+<span class="text-sm font-medium">Plastics</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#eaf1ef] dark:bg-[#1f2b27] text-[#111816] dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+<span class="material-symbols-outlined text-[18px]">battery_charging_full</span>
+<span class="text-sm font-medium">Electronics</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#eaf1ef] dark:bg-[#1f2b27] text-[#111816] dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+<span class="material-symbols-outlined text-[18px]">compost</span>
+<span class="text-sm font-medium">Bio-waste</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#eaf1ef] dark:bg-[#1f2b27] text-[#111816] dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all">
+<span class="material-symbols-outlined text-[18px]">wine_bar</span>
+<span class="text-sm font-medium">Glass</span>
+</button>
+</div>
+</div>
+<!-- Impact Widget -->
+<div class="mt-8 rounded-xl bg-gradient-to-br from-primary to-[#0f2e24] p-5 text-white shadow-lg relative overflow-hidden group">
+<div class="absolute -right-6 -top-6 size-24 rounded-full bg-white/10 blur-xl group-hover:bg-white/20 transition-all"></div>
+<h4 class="relative text-sm font-medium text-green-100 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-green-300">eco</span> Sustainability Impact
+                    </h4>
+<div class="relative grid grid-cols-2 gap-4">
+<div>
+<div class="text-3xl font-bold tracking-tight">1.2t</div>
+<div class="text-xs text-green-200 mt-1">CO2 Offset</div>
+</div>
+<div class="border-l border-white/20 pl-4">
+<div class="text-3xl font-bold tracking-tight">450</div>
+<div class="text-xs text-green-200 mt-1">Pickups Done</div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-px bg-[#eaf1ef] dark:bg-gray-800 w-full"></div>
+<!-- Scrollable List of Results -->
+<div class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#f9fbfa] dark:bg-[#0f1614]">
+<p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Top Collectors Nearby</p>
+<!-- Card 1 -->
+<div class="bg-white dark:bg-[#1f2b27] p-4 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="flex gap-4">
+<div class="size-16 rounded-lg bg-gray-200 bg-cover bg-center shrink-0" data-alt="Logo of Urban Recyclers with green leaf motif" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCP4apgQGsqSFP5C676XvMMp4FmSS16T168lMtYK5ZZxHOzSYirjo175Y3Ompzx8pLWeqSW7uL1z5eFvvCagkrnFOvLUQ5Z7xXWrkvjxNekMQGU72GoD3ow8ICpRcS6SY9WDpdqsAapKv_Nqp88J6OVoqTcLCYoxpnLNA3x2ehrn_d1j8NpH7ZnU8Dyuj7aksH0kRwcZ54okKjXvJRQcRaJnmp-EyrE1kGlRhKEXHncvBu3C7c_6RSk4DL73hpm89gjuPnal7tETW4");'></div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h5 class="font-bold text-[#111816] dark:text-white truncate">Urban Recyclers</h5>
+<div class="flex items-center gap-1 text-xs font-bold text-[#111816] dark:text-white bg-yellow-100 dark:bg-yellow-900/30 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-yellow-600 text-[14px] fill-1">star</span> 5.0
+                                </div>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">2.4 km away • Typically replies in 1hr</p>
+<div class="flex gap-2 mt-3">
+<span class="text-[10px] font-medium px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">Plastics</span>
+<span class="text-[10px] font-medium px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">Paper</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-white dark:bg-[#1f2b27] p-4 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="flex gap-4">
+<div class="size-16 rounded-lg bg-gray-200 bg-cover bg-center shrink-0" data-alt="Truck logo of EcoHaul Logistics" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDWd8_qxQzlH6owXy4KofYIn6DJVHP9ZZ1n9QmuMyDAnwRN4PiTYmZsqfFkYHF_SMIDARaIEaCT4-DNaDkIkzTrOd1le_t3M4faAmSzojtyKeKiIeCbqY130-hbOtV3BFecTiRlYkj7qIVi5IyBU_Y8c8A0k4ia_VCYTnIAoeIYOIBMLN9KeF2AKVA3VUuTwQ7Kc7MWfjTloqtmhuO0I7DWSUOxeKybVrXw6V4QJXNPVCkair9aDTqdkC8tR6mB4zKjAmja8wupy6Uz");'></div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h5 class="font-bold text-[#111816] dark:text-white truncate">EcoHaul Logistics</h5>
+<div class="flex items-center gap-1 text-xs font-bold text-[#111816] dark:text-white bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-yellow-500 text-[14px]">star</span> 4.7
+                                </div>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">5.1 km away • Industrial Specialist</p>
+<div class="flex gap-2 mt-3">
+<span class="text-[10px] font-medium px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">Construction</span>
+<span class="text-[10px] font-medium px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">Metal</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-white dark:bg-[#1f2b27] p-4 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow cursor-pointer group">
+<div class="flex gap-4">
+<div class="size-16 rounded-lg bg-gray-200 bg-cover bg-center shrink-0" data-alt="Green leaf logo for Bio Solutions" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNjapdEX7Dp-5a8c69w5FLjhUJO4UFVCHGWdGoRnjwfJoEy_caqA6BT3SgoV2sb2aAyybUVNoW6pHLVyBIaLS0NcDffr8c0l7vE73VNywI_TVya0j0zH-ADJMoBxfcbGG7w-S1YIJRs-7iH1QVyqPNOgeZqNBIRtLBBSkwDFMHYBsFCUhg6NzknhpGUDduBLR1aFI8H7KuTdXH5VuH5GRBDqiolna8AXvG9YF1Bnqa3yw5LQsvKf1CySiLIl4DU3ml7yBaFuShJnLb");'></div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start">
+<h5 class="font-bold text-[#111816] dark:text-white truncate">Bio Solutions</h5>
+<div class="flex items-center gap-1 text-xs font-bold text-[#111816] dark:text-white bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-yellow-500 text-[14px]">star</span> 4.9
+                                </div>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">1.2 km away • Organic waste only</p>
+<div class="flex gap-2 mt-3">
+<span class="text-[10px] font-medium px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full">Bio-waste</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Map Area -->
+<section class="flex-1 relative bg-gray-200 overflow-hidden">
+<!-- Map Background Placeholder -->
+<div class="absolute inset-0 bg-cover bg-center grayscale-[20%] opacity-90" data-location="City map view from top down showing streets and parks" style='background-image: url("https://placeholder.pics/svg/300");'></div>
+<div class="absolute inset-0 bg-white/10 dark:bg-black/20 pointer-events-none"></div>
+<!-- Map Controls -->
+<div class="absolute top-4 right-4 flex flex-col gap-2 z-10">
+<button class="size-10 bg-white dark:bg-background-dark text-gray-700 dark:text-gray-200 rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+<button class="size-10 bg-white dark:bg-background-dark text-gray-700 dark:text-gray-200 rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="size-10 bg-white dark:bg-background-dark text-gray-700 dark:text-gray-200 rounded-lg shadow-lg flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+<!-- Map Pins with Halos -->
+<!-- Pin 1: Active/Selected -->
+<div class="absolute top-[35%] left-[45%] group cursor-pointer z-20">
+<!-- Halo -->
+<div class="absolute -top-12 -left-12 size-32 bg-primary/20 rounded-full animate-halo pointer-events-none"></div>
+<!-- Pin Body -->
+<div class="relative flex flex-col items-center">
+<!-- Tooltip -->
+<div class="absolute bottom-full mb-2 bg-white dark:bg-background-dark text-[#111816] dark:text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-xl whitespace-nowrap opacity-100 transition-opacity">
+                        Urban Recyclers
+                        <div class="absolute bottom-[-4px] left-1/2 -translate-x-1/2 size-2 bg-white dark:bg-background-dark rotate-45"></div>
+</div>
+<!-- Marker -->
+<div class="size-8 bg-primary rounded-full border-[3px] border-white dark:border-gray-800 shadow-lg flex items-center justify-center transform group-hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-white text-[18px]">recycling</span>
+</div>
+<!-- Pin Shadow -->
+<div class="w-2 h-1 bg-black/30 rounded-[100%] mt-1 blur-[1px]"></div>
+</div>
+</div>
+<!-- Pin 2 -->
+<div class="absolute top-[55%] left-[30%] group cursor-pointer z-10">
+<div class="absolute -top-8 -left-8 size-24 bg-primary/10 rounded-full pointer-events-none"></div>
+<div class="relative flex flex-col items-center">
+<div class="absolute bottom-full mb-2 bg-white dark:bg-background-dark text-[#111816] dark:text-white text-xs font-medium px-2 py-1 rounded shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        Bio Solutions
+                        <div class="absolute bottom-[-4px] left-1/2 -translate-x-1/2 size-2 bg-white dark:bg-background-dark rotate-45"></div>
+</div>
+<div class="size-8 bg-white dark:bg-background-dark rounded-full border-[3px] border-primary shadow-lg flex items-center justify-center transform group-hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-primary text-[18px]">compost</span>
+</div>
+</div>
+</div>
+<!-- Pin 3 -->
+<div class="absolute top-[25%] left-[65%] group cursor-pointer z-10">
+<div class="absolute -top-10 -left-10 size-28 bg-primary/10 rounded-full pointer-events-none"></div>
+<div class="relative flex flex-col items-center">
+<div class="absolute bottom-full mb-2 bg-white dark:bg-background-dark text-[#111816] dark:text-white text-xs font-medium px-2 py-1 rounded shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        EcoHaul Logistics
+                         <div class="absolute bottom-[-4px] left-1/2 -translate-x-1/2 size-2 bg-white dark:bg-background-dark rotate-45"></div>
+</div>
+<div class="size-8 bg-white dark:bg-background-dark rounded-full border-[3px] border-primary shadow-lg flex items-center justify-center transform group-hover:-translate-y-1 transition-transform">
+<span class="material-symbols-outlined text-primary text-[18px]">local_shipping</span>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Card (Selected Collector Details) -->
+<div class="absolute bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-96 bg-white dark:bg-[#1f2b27] rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 p-5 animate-[slide-up_0.3s_ease-out]">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3">
+<div class="size-12 rounded-lg bg-gray-100 bg-cover bg-center" data-alt="Small thumbnail of Urban Recyclers logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCfsWUdGBYlNXS1arKcy1OyDlGMzbNP0HJkXxwRUr2ZhF9C8QqMeuiOYa-eBB_1J9muGvDmX8rZT29nyx_bN8dmxVxUXPYS-Ou5p0h0Ffuuu9ds2kx7I1IwtqXTDL29-j8T9JROwaqFu6fGNE_Jkk2bBpNcsXPe4o5JrpLZBX55L_vw7gowLsnAq4QtQIUocu2hZSimNXxplnCNtRf12hkrWkuucAqVLgl0J6s-Z3q5ERXPHnMdGv2EBJ77SWk08nj5U4r6M-qKrWd");'></div>
+<div>
+<h3 class="font-bold text-lg text-[#111816] dark:text-white leading-tight">Urban Recyclers</h3>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-[16px] mr-1">location_on</span>
+                                22 Green St, Eco District
+                            </div>
+</div>
+</div>
+<button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex items-center gap-4 mb-4">
+<div class="flex items-center gap-1 text-sm font-bold text-[#111816] dark:text-white">
+<span class="material-symbols-outlined text-yellow-500 text-[18px] fill-1">star</span> 5.0
+                        <span class="text-gray-400 font-normal text-xs">(124 reviews)</span>
+</div>
+<div class="h-4 w-px bg-gray-200 dark:bg-gray-700"></div>
+<div class="text-xs text-green-700 dark:text-green-400 font-medium bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded-full">
+                        Verified Partner
+                    </div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-5">
+<div class="bg-[#f9fbfa] dark:bg-background-dark p-2 rounded-lg text-center">
+<span class="block text-xs text-gray-500">Service Fee</span>
+<span class="block text-sm font-semibold text-[#111816] dark:text-white">$25 / pickup</span>
+</div>
+<div class="bg-[#f9fbfa] dark:bg-background-dark p-2 rounded-lg text-center">
+<span class="block text-xs text-gray-500">Availability</span>
+<span class="block text-sm font-semibold text-[#111816] dark:text-white">Today, 2 PM</span>
+</div>
+</div>
+<button class="w-full h-12 bg-primary hover:bg-[#143a2f] text-white font-semibold rounded-lg shadow-md transition-colors flex items-center justify-center gap-2">
+                    Request Pickup
+                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</section>
+</main>
+</body></html>

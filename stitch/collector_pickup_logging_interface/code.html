@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collector Pickup Logging - Waste2Worth</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ecab",
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221c",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1c2e28",
+                        "text-main-light": "#0d1b17",
+                        "text-main-dark": "#e0ece9",
+                        "text-secondary-light": "#4c9a82",
+                        "text-secondary-dark": "#8fb7aa",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom styles for specific component interactions if needed */
+        .chip-selected {
+            background-color: rgba(19, 236, 171, 0.2);
+            border-color: #13ecab;
+            color: #0d1b17;
+        }
+        .chip-unselected {
+            background-color: #e7f3f0;
+            border-color: transparent;
+            color: #0d1b17;
+        }
+        /* Dark mode overrides for custom classes */
+        .dark .chip-selected {
+            background-color: rgba(19, 236, 171, 0.2);
+            border-color: #13ecab;
+            color: #e0ece9;
+        }
+        .dark .chip-unselected {
+            background-color: #2a3d36;
+            color: #e0ece9;
+        }
+        .input-focus-ring:focus {
+            ring-color: #13ecab;
+            border-color: #13ecab;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col transition-colors duration-200">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-[#e7f3f0] dark:border-[#2a3d36] bg-surface-light dark:bg-surface-dark px-4 sm:px-10 py-3 shadow-sm">
+<div class="mx-auto flex max-w-[960px] items-center justify-between">
+<div class="flex items-center gap-4 text-text-main-light dark:text-text-main-dark">
+<div class="flex items-center justify-center size-8 rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined">recycling</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Waste2Worth</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-1.5 border border-primary/20">
+<span class="size-2 rounded-full bg-primary animate-pulse"></span>
+<span class="text-sm font-bold text-text-main-light dark:text-text-main-dark">In Progress</span>
+</div>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-white dark:ring-[#2a3d36]" data-alt="User profile avatar showing a smiling worker in safety gear" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBHr09n9e7eeWo0ZSDnPkaxwhhGdYLF5O7EqGdIgVrjFLyw6pSOiij5ibz-3NVpH_kx0mUYyd0caguP3740eKVNcoKEZFav3sSYq2LWxe0j-DrNk9QcLboi_UOoAHItBJkk8knsE3HQCXxsrdTGFCmw7kDIrXSgohJBXvoWxmD0jKrbf3qKkYXrKAYumcJNj6wIDyyAAfNzKXzi9X2XAKNxx9nCsTY51S1X6y1bqyjrZBn8NgTCQ_-TwJMIjVCbuNEliZCY8OeVMWMt");'>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex justify-center py-6 sm:py-10 px-4 sm:px-6">
+<div class="w-full max-w-[800px] flex flex-col gap-6">
+<!-- Page Heading & Context -->
+<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-[#e7f3f0] dark:border-[#2a3d36] shadow-sm">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-text-secondary-light dark:text-text-secondary-dark text-sm font-medium uppercase tracking-wide">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Greenwood Municipal Park - Zone B</span>
+</div>
+<h1 class="text-text-main-light dark:text-text-main-dark text-3xl font-bold tracking-tight">Log Pickup #492-AC</h1>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm mt-1">Started: Today, 09:42 AM</p>
+</div>
+<button class="sm:self-start text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-3xl">info</span>
+</button>
+</div>
+<form class="flex flex-col gap-6" onsubmit="event.preventDefault();">
+<!-- Photo Upload Zone -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-[#e7f3f0] dark:border-[#2a3d36] shadow-sm overflow-hidden">
+<div class="p-4 border-b border-[#e7f3f0] dark:border-[#2a3d36] flex justify-between items-center">
+<h3 class="text-text-main-light dark:text-text-main-dark font-bold text-lg">Proof of Pickup</h3>
+<span class="text-xs font-medium text-text-secondary-light dark:text-text-secondary-dark bg-[#e7f3f0] dark:bg-[#2a3d36] px-2 py-1 rounded">REQUIRED</span>
+</div>
+<div class="p-6">
+<div class="group relative flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-[#cfe7e0] dark:border-[#2a3d36] hover:border-primary hover:bg-[#f0fdf9] dark:hover:bg-primary/5 transition-all duration-300 px-6 py-12 cursor-pointer">
+<div class="flex items-center justify-center size-16 rounded-full bg-[#e7f3f0] dark:bg-[#2a3d36] group-hover:bg-white dark:group-hover:bg-[#1c2e28] transition-colors">
+<span class="material-symbols-outlined text-3xl text-primary">add_a_photo</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-center">
+<p class="text-text-main-light dark:text-text-main-dark text-lg font-bold">Upload Pickup Photo</p>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-sm max-w-[300px]">Snap a photo of the waste or drag file here. JPG or PNG up to 10MB.</p>
+</div>
+<button class="mt-2 min-h-[44px] flex items-center justify-center rounded-lg bg-text-main-light dark:bg-white text-white dark:text-black px-6 text-sm font-bold shadow hover:opacity-90 transition-opacity" type="button">
+                                Select File
+                            </button>
+</div>
+</div>
+</div>
+<!-- Waste Categories Chips -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-[#e7f3f0] dark:border-[#2a3d36] shadow-sm">
+<div class="p-4 border-b border-[#e7f3f0] dark:border-[#2a3d36]">
+<h3 class="text-text-main-light dark:text-text-main-dark font-bold text-lg">Waste Categories</h3>
+</div>
+<div class="p-6">
+<div class="flex flex-wrap gap-3">
+<!-- Selected Chip Example -->
+<button class="chip-selected flex min-h-[44px] items-center gap-2 rounded-lg border px-5 py-2 transition-all hover:opacity-80" type="button">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span class="text-sm font-bold">Plastic</span>
+</button>
+<!-- Unselected Chip Examples -->
+<button class="chip-unselected flex min-h-[44px] items-center gap-2 rounded-lg border border-transparent hover:border-[#cfe7e0] dark:hover:border-[#3e524b] px-5 py-2 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] opacity-50">circle</span>
+<span class="text-sm font-bold">Glass</span>
+</button>
+<button class="chip-unselected flex min-h-[44px] items-center gap-2 rounded-lg border border-transparent hover:border-[#cfe7e0] dark:hover:border-[#3e524b] px-5 py-2 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] opacity-50">circle</span>
+<span class="text-sm font-bold">Organic</span>
+</button>
+<button class="chip-unselected flex min-h-[44px] items-center gap-2 rounded-lg border border-transparent hover:border-[#cfe7e0] dark:hover:border-[#3e524b] px-5 py-2 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] opacity-50">circle</span>
+<span class="text-sm font-bold">E-Waste</span>
+</button>
+<button class="chip-unselected flex min-h-[44px] items-center gap-2 rounded-lg border border-transparent hover:border-[#cfe7e0] dark:hover:border-[#3e524b] px-5 py-2 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] opacity-50">circle</span>
+<span class="text-sm font-bold">Paper</span>
+</button>
+<button class="chip-unselected flex min-h-[44px] items-center gap-2 rounded-lg border border-transparent hover:border-[#cfe7e0] dark:hover:border-[#3e524b] px-5 py-2 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] opacity-50">circle</span>
+<span class="text-sm font-bold">General</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Measurements & Notes -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Weight Input -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-[#e7f3f0] dark:border-[#2a3d36] shadow-sm p-6 flex flex-col gap-4">
+<label class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-bold uppercase tracking-wider" for="weight">Total Weight</label>
+<div class="relative flex items-center">
+<input class="w-full bg-[#f8fcfb] dark:bg-[#162621] border border-[#cfe7e0] dark:border-[#2a3d36] text-text-main-light dark:text-text-main-dark text-2xl font-bold rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 min-h-[52px]" id="weight" placeholder="0.0" type="number"/>
+<span class="absolute right-4 text-text-secondary-light dark:text-text-secondary-dark font-bold text-sm">KG</span>
+</div>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+                            Estimated from scale reading
+                        </p>
+</div>
+<!-- Volume Input -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-[#e7f3f0] dark:border-[#2a3d36] shadow-sm p-6 flex flex-col gap-4">
+<label class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-bold uppercase tracking-wider" for="volume">Total Volume</label>
+<div class="relative flex items-center">
+<input class="w-full bg-[#f8fcfb] dark:bg-[#162621] border border-[#cfe7e0] dark:border-[#2a3d36] text-text-main-light dark:text-text-main-dark text-2xl font-bold rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-gray-300 dark:placeholder:text-gray-600 min-h-[52px]" id="volume" placeholder="0.0" type="number"/>
+<span class="absolute right-4 text-text-secondary-light dark:text-text-secondary-dark font-bold text-sm">M³</span>
+</div>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">deployed_code</span>
+                            Calculated from bin size
+                        </p>
+</div>
+<!-- Notes Input - Full Width -->
+<div class="md:col-span-2 bg-surface-light dark:bg-surface-dark rounded-xl border border-[#e7f3f0] dark:border-[#2a3d36] shadow-sm p-6 flex flex-col gap-4">
+<label class="text-text-secondary-light dark:text-text-secondary-dark text-sm font-bold uppercase tracking-wider" for="notes">Collector Notes</label>
+<textarea class="w-full bg-[#f8fcfb] dark:bg-[#162621] border border-[#cfe7e0] dark:border-[#2a3d36] text-text-main-light dark:text-text-main-dark text-base font-normal rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none" id="notes" placeholder="Any issues accessing the site or contamination notes..." rows="3"></textarea>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="sticky bottom-4 z-40 mt-4 flex flex-col-reverse sm:flex-row gap-4">
+<button class="flex-1 min-h-[56px] flex items-center justify-center gap-2 rounded-xl border border-[#cfe7e0] dark:border-[#2a3d36] bg-surface-light dark:bg-surface-dark text-text-main-light dark:text-text-main-dark text-base font-bold shadow-sm hover:bg-gray-50 dark:hover:bg-[#253830] transition-colors" type="button">
+<span class="material-symbols-outlined">flag</span>
+                        Report Issue
+                    </button>
+<button class="flex-[2] min-h-[56px] flex items-center justify-center gap-2 rounded-xl bg-primary text-[#0d1b17] text-lg font-bold shadow-lg shadow-primary/25 hover:bg-primary/90 hover:scale-[1.01] active:scale-[0.99] transition-all" type="submit">
+<span class="material-symbols-outlined">check_circle</span>
+                        Complete Pickup
+                    </button>
+</div>
+<!-- Spacer for scrolling -->
+<div class="h-12"></div>
+</form>
+</div>
+</main>
+</body></html>

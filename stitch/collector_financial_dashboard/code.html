@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Collector Financial Dashboard - Waste2Worth</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec92",
+                        "primary-dark": "#0fae6b", // Darker shade for text contrast
+                        "background-light": "#f6f8f7",
+                        "background-dark": "#10221a",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1c3026",
+                        "text-main-light": "#0d1b16",
+                        "text-main-dark": "#e0f2eb",
+                        "text-sub-light": "#4c9a79",
+                        "text-sub-dark": "#8abfab",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for table */
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #334155;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main-light dark:text-text-main-dark transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-row overflow-hidden">
+<!-- Sidebar Navigation -->
+<div class="hidden md:flex w-64 flex-col border-r border-gray-200 dark:border-gray-800 bg-card-light dark:bg-card-dark h-screen fixed left-0 top-0 z-20">
+<div class="flex h-full flex-col justify-between p-4">
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="Waste2Worth Logo Abstract Green" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuABBifG4GtAfxyEdejxOYYN2-alVl9T7cTZFjSlJwF_TAX8HY9aGolyXql7Yx4ZIBhj9aGr3WPgEpqZKIqblOQZoredZBQE3Mm-O-JHO6y2bT7F84Yk-0lUETh-TRuzVkvNKfdWRGWRK4ScwKP6ZEsx2uViNNMkokO1ETgmUhB8ntRaCT9PnQDZ9BURh8lOFwXeHRU6KOcVD0DqvGkT19ONhz_2Ms99Ukd2VDksfOZYN7Hk-8gejV4kXSXCFj11nAAy9dfytBaPk4ky");'></div>
+<div class="flex flex-col">
+<h1 class="text-text-main-light dark:text-text-main-dark text-base font-bold leading-normal">Waste2Worth</h1>
+<p class="text-text-sub-light dark:text-text-sub-dark text-xs font-normal leading-normal">Collector Portal</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-sub-light dark:text-text-sub-dark group-hover:text-primary transition-colors">dashboard</span>
+<p class="text-text-main-light dark:text-text-main-dark text-sm font-medium">Dashboard</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-sub-light dark:text-text-sub-dark group-hover:text-primary transition-colors">local_shipping</span>
+<p class="text-text-main-light dark:text-text-main-dark text-sm font-medium">Collections</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary-dark dark:text-primary" href="#">
+<span class="material-symbols-outlined fill-current">payments</span>
+<p class="text-sm font-bold">Earnings</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-sub-light dark:text-text-sub-dark group-hover:text-primary transition-colors">person</span>
+<p class="text-text-main-light dark:text-text-main-dark text-sm font-medium">Profile</p>
+</a>
+</nav>
+</div>
+<div class="flex flex-col gap-2 border-t border-gray-200 dark:border-gray-800 pt-4">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-sub-light dark:text-text-sub-dark group-hover:text-red-500 transition-colors">logout</span>
+<p class="text-text-main-light dark:text-text-main-dark text-sm font-medium group-hover:text-red-500 transition-colors">Sign Out</p>
+</a>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col md:ml-64 bg-background-light dark:bg-background-dark min-h-screen">
+<!-- Mobile Header -->
+<div class="md:hidden flex items-center justify-between p-4 bg-card-light dark:bg-card-dark border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="Waste2Worth Logo Mobile" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD8QxoRF3mMBDCPfkw-YQcxLXkR_ekh2xLEtZLP-6Lh2zxsne6xaPYXBRix9eM1PaVd6lD6Psu4nSND8ShDYoS4udtnCSu4Lp22H7O86ms-gHbjOxGY9HZ_OXGdORsRM5oofTxPQuEMf-ktSUahF0qFlJxQyptSfyAkXChkYKgvHnMr6UkXshL3nM-nC6M1uoV02sog8EuHwNJniSE0BoUXtnCl7Z2QRdq2cV1xp83l_XKXW23URVBl5y2LU5uFVggVzU5o7Ymkxcbq");'></div>
+<span class="font-bold text-lg">W2W</span>
+</div>
+<button class="p-2 text-text-main-light dark:text-text-main-dark">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex flex-col flex-1 p-4 md:p-8 lg:px-12 xl:px-16 max-w-7xl mx-auto w-full gap-8">
+<!-- Page Heading -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div class="flex flex-col gap-1">
+<h1 class="text-text-main-light dark:text-text-main-dark text-3xl md:text-4xl font-black tracking-tight">Earnings &amp; Payouts</h1>
+<p class="text-text-sub-light dark:text-text-sub-dark text-base font-normal">Track your financial growth and manage payouts.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center gap-2 rounded-lg h-10 px-4 border border-gray-200 dark:border-gray-700 bg-card-light dark:bg-card-dark hover:bg-gray-50 dark:hover:bg-gray-800 text-text-main-light dark:text-text-main-dark text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>Oct 2023</span>
+</button>
+<button class="flex items-center justify-center gap-2 rounded-lg h-10 px-4 bg-primary hover:bg-primary-dark/90 text-black text-sm font-bold shadow-sm shadow-primary/20 transition-all hover:translate-y-[-1px]">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="hidden sm:inline">Download Report</span>
+</button>
+</div>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Total Balance -->
+<div class="flex flex-col justify-between gap-4 rounded-xl p-6 bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<p class="text-text-sub-light dark:text-text-sub-dark text-sm font-semibold uppercase tracking-wider">Total Balance</p>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">account_balance_wallet</span>
+</div>
+<div>
+<p class="text-text-main-light dark:text-text-main-dark tracking-tight text-3xl font-bold">$4,250.00</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="flex items-center text-primary-dark dark:text-primary text-sm font-bold bg-green-100 dark:bg-green-900/30 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-sm mr-0.5">trending_up</span>
+                                    12.5%
+                                </span>
+<span class="text-text-sub-light dark:text-text-sub-dark text-sm">vs last month</span>
+</div>
+</div>
+</div>
+<!-- Next Payout -->
+<div class="flex flex-col justify-between gap-4 rounded-xl p-6 bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<p class="text-text-sub-light dark:text-text-sub-dark text-sm font-semibold uppercase tracking-wider">Next Payout</p>
+<span class="material-symbols-outlined text-blue-500 bg-blue-50 dark:bg-blue-900/20 p-2 rounded-lg">event</span>
+</div>
+<div>
+<p class="text-text-main-light dark:text-text-main-dark tracking-tight text-3xl font-bold">Oct 24, 2023</p>
+<p class="text-text-sub-light dark:text-text-sub-dark text-sm font-medium mt-1">Scheduled via Bank Transfer</p>
+</div>
+</div>
+<!-- Pending Earnings -->
+<div class="flex flex-col justify-between gap-4 rounded-xl p-6 bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between">
+<p class="text-text-sub-light dark:text-text-sub-dark text-sm font-semibold uppercase tracking-wider">Pending</p>
+<span class="material-symbols-outlined text-orange-500 bg-orange-50 dark:bg-orange-900/20 p-2 rounded-lg">hourglass_top</span>
+</div>
+<div>
+<p class="text-text-main-light dark:text-text-main-dark tracking-tight text-3xl font-bold">$450.00</p>
+<p class="text-text-sub-light dark:text-text-sub-dark text-sm font-medium mt-1">Processing from current cycle</p>
+</div>
+</div>
+</div>
+<!-- Main Chart Section -->
+<div class="w-full rounded-xl bg-card-light dark:bg-card-dark border border-gray-100 dark:border-gray-800 shadow-sm p-6">
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<div>
+<h3 class="text-text-main-light dark:text-text-main-dark text-lg font-bold">Earnings History</h3>
+<p class="text-text-sub-light dark:text-text-sub-dark text-sm">Daily earnings over the last 30 days</p>
+</div>
+<div class="text-right hidden sm:block">
+<p class="text-2xl font-bold text-text-main-light dark:text-text-main-dark">$4,250.00</p>
+<p class="text-sm text-primary-dark dark:text-primary font-medium">+8% Growth</p>
+</div>
+</div>
+<!-- Chart Graphic -->
+<div class="relative w-full h-[240px] md:h-[300px]">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#13ec92" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#13ec92" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line class="dark:stroke-gray-700" stroke="#e2e8f0" stroke-dasharray="4 4" x1="0" x2="1000" y1="225" y2="225"></line>
+<line class="dark:stroke-gray-700" stroke="#e2e8f0" stroke-dasharray="4 4" x1="0" x2="1000" y1="150" y2="150"></line>
+<line class="dark:stroke-gray-700" stroke="#e2e8f0" stroke-dasharray="4 4" x1="0" x2="1000" y1="75" y2="75"></line>
+<!-- Area Path -->
+<path d="M0 225 C100 225 150 150 200 150 C250 150 300 180 350 180 C400 180 450 100 500 100 C550 100 600 130 650 130 C700 130 750 60 800 60 C850 60 900 90 950 90 L 1000 70 V 300 H 0 Z" fill="url(#chartGradient)"></path>
+<!-- Line Path -->
+<path d="M0 225 C100 225 150 150 200 150 C250 150 300 180 350 180 C400 180 450 100 500 100 C550 100 600 130 650 130 C700 130 750 60 800 60 C850 60 900 90 950 90 L 1000 70" fill="none" stroke="#13ec92" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Tooltip Point (Static Example) -->
+<circle class="dark:stroke-gray-800" cx="800" cy="60" fill="#13ec92" r="6" stroke="white" stroke-width="3"></circle>
+</svg>
+<!-- Tooltip Card (Static Position for visual) -->
+<div class="absolute top-[20px] right-[16%] bg-card-light dark:bg-card-dark p-2 rounded shadow-lg border border-gray-100 dark:border-gray-700 text-xs">
+<p class="font-bold text-text-main-light dark:text-text-main-dark">$1,150.50</p>
+<p class="text-text-sub-light dark:text-text-sub-dark">Oct 19</p>
+</div>
+</div>
+<!-- X-Axis Labels -->
+<div class="flex justify-between mt-4 text-xs font-medium text-text-sub-light dark:text-text-sub-dark px-2">
+<span>Sept 24</span>
+<span>Oct 1</span>
+<span>Oct 8</span>
+<span>Oct 15</span>
+<span>Oct 22</span>
+</div>
+</div>
+<!-- Recent Payouts Table Section -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-xl font-bold text-text-main-light dark:text-text-main-dark">Recent Payouts</h3>
+<a class="text-sm font-medium text-primary-dark dark:text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 bg-card-light dark:bg-card-dark shadow-sm">
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left text-sm text-text-sub-light dark:text-text-sub-dark">
+<thead class="bg-gray-50 dark:bg-gray-800/50 text-xs uppercase font-semibold text-text-main-light dark:text-text-main-dark">
+<tr>
+<th class="px-6 py-4" scope="col">Transaction ID</th>
+<th class="px-6 py-4" scope="col">Date</th>
+<th class="px-6 py-4" scope="col">Method</th>
+<th class="px-6 py-4" scope="col">Amount</th>
+<th class="px-6 py-4 text-right" scope="col">Status</th>
+<th class="px-6 py-4 text-right" scope="col">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark whitespace-nowrap">#TRX-88592</td>
+<td class="px-6 py-4 whitespace-nowrap">Oct 15, 2023</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-lg">account_balance</span>
+<span>Bank Transfer ****4492</span>
+</div>
+</td>
+<td class="px-6 py-4 font-bold text-text-main-light dark:text-text-main-dark whitespace-nowrap">$1,200.00</td>
+<td class="px-6 py-4 text-right whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-300">
+<span class="mr-1 h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                                                Paid
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right whitespace-nowrap">
+<button class="text-gray-400 hover:text-text-main-light dark:hover:text-text-main-dark transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark whitespace-nowrap">#TRX-88421</td>
+<td class="px-6 py-4 whitespace-nowrap">Oct 01, 2023</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-lg">account_balance</span>
+<span>Bank Transfer ****4492</span>
+</div>
+</td>
+<td class="px-6 py-4 font-bold text-text-main-light dark:text-text-main-dark whitespace-nowrap">$1,150.50</td>
+<td class="px-6 py-4 text-right whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-300">
+<span class="mr-1 h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                                                Paid
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right whitespace-nowrap">
+<button class="text-gray-400 hover:text-text-main-light dark:hover:text-text-main-dark transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 font-medium text-text-main-light dark:text-text-main-dark whitespace-nowrap">--</td>
+<td class="px-6 py-4 whitespace-nowrap">Current Period</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-lg">pending</span>
+<span>Estimated</span>
+</div>
+</td>
+<td class="px-6 py-4 font-bold text-text-main-light dark:text-text-main-dark whitespace-nowrap">$450.00</td>
+<td class="px-6 py-4 text-right whitespace-nowrap">
+<span class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
+<span class="mr-1 h-1.5 w-1.5 rounded-full bg-yellow-500"></span>
+                                                Processing
+                                            </span>
+</td>
+<td class="px-6 py-4 text-right whitespace-nowrap">
+<button class="text-gray-400 hover:text-text-main-light dark:hover:text-text-main-dark transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

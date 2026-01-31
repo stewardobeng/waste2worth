@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Waste2Worth Pickup Request</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0bdaa6",
+                        "primary-dark": "#09af85",
+                        "background-light": "#f5f8f8",
+                        "background-dark": "#10221e",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a352f",
+                        "text-main": "#0d1c18",
+                        "text-muted": "#499c87",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for the modal content */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #94a3b8;
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-panel {
+            background: rgba(16, 34, 30, 0.95);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main h-screen overflow-hidden">
+<!-- Background Dashboard Simulation (Blurred Context) -->
+<div class="fixed inset-0 z-0 opacity-40 pointer-events-none" data-alt="Blurred office background showing dashboard context" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD6dNU1Lc0cPEFaFpmQWOVBaLOb3BiWOm5CA-1ww4STtvxT6XdXgskq9rCZH4V5NzHfpb6cjRmfoi97iHjzpfLstd1Jrd2XzKw7hsU-4h0G89cNKY2LZc6fQ9FpQdaYn2dkDY_v2mNO5_qKaYcYQhx7nRHWVd5-yrZWcEw8zxzJeTJmV3BJE9RMn3VBtxVZtv1ut7zIXPBE56cblL4w-92kKeCGM0owzm-h_D50486q7CA62lvRbA82yKWJGPzfbP7a6evrUfWmrNOj'); background-size: cover; background-position: center;">
+</div>
+<div class="fixed inset-0 z-0 bg-white/60 dark:bg-black/60 backdrop-blur-sm"></div>
+<!-- Main Modal Container -->
+<div class="relative z-10 flex h-full w-full items-center justify-center p-4 sm:p-6 lg:p-8">
+<div class="glass-panel w-full max-w-6xl h-full max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-white/50 dark:border-white/10 relative">
+<!-- Modal Header with Progress Stepper -->
+<div class="border-b border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-surface-dark/50 px-6 py-4 flex flex-col gap-4 sticky top-0 z-20">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">recycling</span>
+                            Schedule Pickup
+                        </h2>
+<p class="text-sm text-gray-500 dark:text-gray-400">Request a new waste collection service</p>
+</div>
+<button class="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-gray-500">close</span>
+</button>
+</div>
+<!-- Progress Bar -->
+<div class="w-full max-w-2xl mx-auto">
+<div class="flex justify-between mb-2">
+<span class="text-xs font-semibold text-primary">Type</span>
+<span class="text-xs font-semibold text-primary">Date &amp; Time</span>
+<span class="text-xs font-semibold text-gray-400">Location</span>
+<span class="text-xs font-semibold text-gray-400">Summary</span>
+</div>
+<div class="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-primary w-1/2 transition-all duration-300"></div>
+</div>
+</div>
+</div>
+<!-- Modal Body (Two Column Layout) -->
+<div class="flex-1 overflow-hidden flex flex-col lg:flex-row">
+<!-- Left Column: Form Steps -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-6 lg:p-8 bg-gray-50/50 dark:bg-transparent">
+<div class="flex flex-col gap-10 max-w-3xl mx-auto">
+<!-- Step 1: Waste Type (Completed/Edit State) -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs font-bold">1</span>
+                                    Waste Type
+                                </h3>
+<button class="text-xs font-medium text-primary hover:text-primary-dark">Edit</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<!-- Selected Item -->
+<div class="relative group cursor-pointer">
+<div class="absolute -inset-0.5 bg-primary rounded-xl opacity-100 blur-sm group-hover:opacity-75 transition duration-200"></div>
+<div class="relative flex flex-col gap-2 p-3 bg-white dark:bg-surface-dark rounded-lg border-2 border-primary shadow-sm">
+<div class="w-full aspect-square rounded-md bg-gray-100 dark:bg-gray-800 bg-cover bg-center" data-alt="Pile of plastic bottles ready for recycling" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCs0e46viVA0X88X_cUQV6Dn31QVpwgHu1zdVhjXrGfBuGLK1GhB1NVPYgOTSR8QZfuY7ie44BmfLm4H2uTSZME6fmiiBKbVUPYsSgAr5qpXQVDmVrJnElleQ0enOFI4YhsaY_4GBTU2ohfKkJGzHiSesqqNiKsHCqRkLLFUz5OHHYZncxQr0yqei3j28fonYYDOva-vRh4uLDAHlPGwjU3Cze-alezjWvhGvdriiv7GEHkK9v6SxzVln3RHWhzqVaEfdGHwY1vjWTY');"></div>
+<div class="flex items-center justify-between">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">Plastic</p>
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Unselected Items (Dimmed) -->
+<div class="relative group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="relative flex flex-col gap-2 p-3 bg-white dark:bg-surface-dark rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary/50 shadow-sm h-full">
+<div class="w-full aspect-square rounded-md bg-gray-100 dark:bg-gray-800 bg-cover bg-center" data-alt="Crushed metal cans" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAINePRQgbjd15Z6rizPxIq3sFCg5QwXIPs4VlKOf2XvUYQKBjGnpCCyVJwP14cwwOXyXxQvZAZERWIwJ9cgi-7zbC-0DC6f0udi3ZGT2qMj97nWDWGadCz__0-WfMQB4txYxsK-aPOTQ8uyADhkp5Piw2z4Y99ET39pBIvMPFn8UJPw7aAVUqNCfanGY9T082iFpqhwlFSRAuY_slC0Cei8z6rMjeL1B9CGUJvi3ZitPG-sKWEm0hsf3gRPaYgcbuBXgOejeFUmigZ');"></div>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-300">Metal</p>
+</div>
+</div>
+<div class="relative group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="relative flex flex-col gap-2 p-3 bg-white dark:bg-surface-dark rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary/50 shadow-sm h-full">
+<div class="w-full aspect-square rounded-md bg-gray-100 dark:bg-gray-800 bg-cover bg-center" data-alt="Organic compost soil" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDg2hzG5_jXplJ9NcpTlLwWZcb5nWUtcRVNpgaWKDyA_zdKeH7nJKWFG9-GYV4Sh3h4vILxjrWaf1z-udofO-JVeQB_5wmvTD10TiiOoqQuWmp8wVpBB-vdeMABcFtYHmy1cpqMAS7cxqBFe7tJkBNbSmaX4T9jfMLuBx50-sAkipAI9aI9hx7BS7HpeTuuT_5eeqHQOmQ1qLIY9edwWaGhR7Njr37SZ7kJurv3npU9xVVNC9DRf1Kh7kX3N-E3WdWjZOPNix560oXS');"></div>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-300">Organic</p>
+</div>
+</div>
+<div class="relative group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+<div class="relative flex flex-col gap-2 p-3 bg-white dark:bg-surface-dark rounded-lg border border-gray-200 dark:border-gray-700 hover:border-primary/50 shadow-sm h-full">
+<div class="w-full aspect-square rounded-md bg-gray-100 dark:bg-gray-800 bg-cover bg-center" data-alt="Old electronic circuit boards" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEQsGMf1bwZ-DKOd6xt5OPWw_rUgP58PGwJrnW9eFdUo-AztwTLURGoBGf8Mx-axCrCstpcuWomPxniXNjHywCIL608MsaMmpJ0GUdJTXgWgIQB2GVV7BfmBgIudeMyIOEQMFMZPpfon1M-IRAf0c4ZDfAiaPE564tqQyvAtqHW7OeTwW2tATBCDVXAbYjfjNDz_5H2TeRAqAQK94f7ffBXO_mMmHK2UdH1x68TQkuoMYH4C1pwtq_3qQ_T7sm59--qOn4tx1HS0j3');"></div>
+<p class="text-sm font-medium text-gray-700 dark:text-gray-300">E-waste</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 2: Date & Time (Active State) -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
+<span class="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white text-xs font-bold shadow-lg shadow-primary/30">2</span>
+                                    Select Date &amp; Time
+                                </h3>
+</div>
+<div class="flex flex-col md:flex-row gap-6 bg-white dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+<!-- Calendar Component -->
+<div class="flex-1 min-w-[300px]">
+<div class="flex items-center justify-between mb-4">
+<button class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-300">chevron_left</span>
+</button>
+<p class="text-base font-bold text-gray-900 dark:text-white">October 2023</p>
+<button class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full">
+<span class="material-symbols-outlined text-gray-600 dark:text-gray-300">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-7 gap-1 mb-2">
+<div class="text-center text-xs font-semibold text-gray-400 py-2">S</div>
+<div class="text-center text-xs font-semibold text-gray-400 py-2">M</div>
+<div class="text-center text-xs font-semibold text-gray-400 py-2">T</div>
+<div class="text-center text-xs font-semibold text-gray-400 py-2">W</div>
+<div class="text-center text-xs font-semibold text-gray-400 py-2">T</div>
+<div class="text-center text-xs font-semibold text-gray-400 py-2">F</div>
+<div class="text-center text-xs font-semibold text-gray-400 py-2">S</div>
+</div>
+<div class="grid grid-cols-7 gap-1">
+<!-- Previous month days -->
+<button class="h-9 w-9 text-gray-300 text-sm flex items-center justify-center rounded-full mx-auto" disabled="">28</button>
+<button class="h-9 w-9 text-gray-300 text-sm flex items-center justify-center rounded-full mx-auto" disabled="">29</button>
+<button class="h-9 w-9 text-gray-300 text-sm flex items-center justify-center rounded-full mx-auto" disabled="">30</button>
+<!-- Current month -->
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">1</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">2</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">3</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">4</button>
+<!-- Selected Day -->
+<button class="h-9 w-9 bg-primary text-white font-bold text-sm flex items-center justify-center rounded-full shadow-md shadow-primary/40 mx-auto">5</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">6</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">7</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">8</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">9</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">10</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">11</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">12</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">13</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">14</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">15</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">16</button>
+<button class="h-9 w-9 text-gray-700 dark:text-gray-300 text-sm flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 mx-auto">17</button>
+</div>
+</div>
+<!-- Time Slots -->
+<div class="w-full md:w-48 flex flex-col gap-3 border-t md:border-t-0 md:border-l border-gray-100 dark:border-gray-700 pt-4 md:pt-0 md:pl-6">
+<p class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-1">Available Times</p>
+<button class="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-primary text-gray-600 dark:text-gray-300 text-sm transition-all bg-gray-50 dark:bg-gray-800">
+                                        09:00 AM
+                                    </button>
+<button class="flex items-center justify-between p-3 rounded-lg border-2 border-primary bg-primary/10 text-primary font-bold text-sm transition-all">
+                                        10:30 AM
+                                        <span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-primary text-gray-600 dark:text-gray-300 text-sm transition-all bg-gray-50 dark:bg-gray-800">
+                                        01:00 PM
+                                    </button>
+<button class="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-primary text-gray-600 dark:text-gray-300 text-sm transition-all bg-gray-50 dark:bg-gray-800">
+                                        03:30 PM
+                                    </button>
+</div>
+</div>
+</section>
+<!-- Step 3: Location (Collapsed Preview) -->
+<section class="flex flex-col gap-4 opacity-50">
+<div class="flex items-center justify-between">
+<h3 class="text-lg font-bold text-gray-800 dark:text-white flex items-center gap-2">
+<span class="flex items-center justify-center w-6 h-6 rounded-full border border-gray-400 text-gray-400 text-xs font-bold">3</span>
+                                    Location
+                                </h3>
+</div>
+<div class="h-32 w-full bg-gray-200 dark:bg-gray-700 rounded-xl overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center grayscale" data-alt="Map showing street layout" data-location="Map view of New York City streets" style="background-image: url('https://placeholder.pics/svg/300');">
+</div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/10">
+<div class="bg-white dark:bg-surface-dark px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500">location_on</span>
+<span class="text-sm font-medium">123 Green St, Eco City</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Right Column: Summary & Actions -->
+<div class="w-full lg:w-[360px] bg-white dark:bg-surface-dark border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-gray-700 flex flex-col p-6 shadow-xl z-30">
+<h3 class="text-lg font-bold text-gray-900 dark:text-white mb-6">Booking Summary</h3>
+<div class="flex-1 flex flex-col gap-6">
+<!-- Line Item 1 -->
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">delete</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">Plastic Waste</p>
+<p class="text-xs text-gray-500">Recyclable material</p>
+</div>
+<p class="text-sm font-bold text-gray-900 dark:text-white">$15.00</p>
+</div>
+<!-- Line Item 2 -->
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">event</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">Pickup Date</p>
+<p class="text-xs text-gray-500">Oct 5, 2023 - 10:30 AM</p>
+</div>
+</div>
+<!-- Line Item 3 -->
+<div class="flex gap-4 opacity-50">
+<div class="w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-400">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-semibold text-gray-900 dark:text-white">Location</p>
+<p class="text-xs text-gray-500">123 Green St...</p>
+</div>
+</div>
+<div class="border-t border-dashed border-gray-200 dark:border-gray-700 my-2"></div>
+<div class="flex justify-between items-center">
+<p class="text-sm text-gray-500">Estimated Total</p>
+<p class="text-2xl font-bold text-gray-900 dark:text-white">$15.00</p>
+</div>
+</div>
+<!-- Actions -->
+<div class="mt-8 flex flex-col gap-3">
+<button class="w-full py-3.5 px-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg shadow-lg shadow-primary/30 transition-all flex items-center justify-center gap-2 group">
+                            Continue
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform text-sm">arrow_forward</span>
+</button>
+<button class="w-full py-3.5 px-4 bg-transparent hover:bg-gray-50 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 font-medium rounded-lg border border-transparent hover:border-gray-200 dark:hover:border-gray-700 transition-all">
+                            Back
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Waste2Worth - User Settings &amp; Security</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df293",
+                        "primary-hover": "#0be086",
+                        "background-light": "#f8fcfa",
+                        "background-dark": "#10221b",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2f26",
+                        "text-main-light": "#0d1c16",
+                        "text-main-dark": "#e7f4ee",
+                        "text-sub-light": "#499c7a",
+                        "text-sub-dark": "#8abfba",
+                        "border-light": "#cee8dd",
+                        "border-dark": "#2a4238",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background-color: #4b5563;
+        }
+        
+        /* Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #0df293;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0df293;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark font-display min-h-screen flex flex-col transition-colors duration-200">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark px-6 py-3 bg-surface-light dark:bg-surface-dark sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary">
+<svg class="h-full w-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_330)">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_330"><rect fill="white" height="48" width="48"></rect></clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em] hidden sm:block">Waste2Worth</h2>
+</div>
+<nav class="hidden md:flex flex-1 justify-center items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Pickups</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Invoices</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="flex items-center gap-6">
+<button class="hidden sm:flex h-9 items-center justify-center rounded-lg px-4 bg-primary hover:bg-primary-hover text-background-dark text-sm font-bold transition-all shadow-sm">
+<span>New Pickup</span>
+</button>
+<div class="flex items-center gap-3">
+<button class="text-text-sub-light dark:text-text-sub-dark hover:text-primary dark:hover:text-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-9 border-2 border-border-light dark:border-border-dark" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB7TK3SpEvVpex9whV-NhKx5UZm-vmJZFVxidnH-KlhapDxn_3Bff9x8c15bjwJM3FKiUaDTmdCMR5-KeAErVlsszWBAPKv70qBu9YYkvTjBfN3nKpFF3-EfOEL4fF0de_SS2EatL9tloyYx_Mswrb05jayi7enXJq2cxgyalGZB1bxq7VP1QFoxR_40NBN5LcZlmT6hJYXhqekMsVhx_eZk44-O9VaXoF2gHi1wj7pZ2JCfbGHE8eCcGzc5z0d5TKo2uWL_TrVE8ay");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
+<!-- Page Heading -->
+<div class="flex flex-col gap-2 mb-8">
+<h1 class="text-3xl sm:text-4xl font-black tracking-tight">Account Settings</h1>
+<p class="text-text-sub-light dark:text-text-sub-dark text-base sm:text-lg">Manage your profile, security preferences, and billing details.</p>
+</div>
+<!-- Navigation Tabs -->
+<div class="border-b border-border-light dark:border-border-dark mb-8 overflow-x-auto">
+<div class="flex gap-8 min-w-max">
+<a class="group flex items-center justify-center border-b-[3px] border-transparent pb-3 pt-2 text-text-sub-light dark:text-text-sub-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-[20px]">person</span>
+<span class="text-sm font-bold tracking-wide">Profile</span>
+</a>
+<a class="group flex items-center justify-center border-b-[3px] border-transparent pb-3 pt-2 text-text-sub-light dark:text-text-sub-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-[20px]">notifications</span>
+<span class="text-sm font-bold tracking-wide">Notifications</span>
+</a>
+<a class="group flex items-center justify-center border-b-[3px] border-primary pb-3 pt-2 text-text-main-light dark:text-text-main-dark" href="#">
+<span class="material-symbols-outlined mr-2 text-[20px]">security</span>
+<span class="text-sm font-bold tracking-wide">Security</span>
+</a>
+<a class="group flex items-center justify-center border-b-[3px] border-transparent pb-3 pt-2 text-text-sub-light dark:text-text-sub-dark hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mr-2 text-[20px]">credit_card</span>
+<span class="text-sm font-bold tracking-wide">Payment Methods</span>
+</a>
+</div>
+</div>
+<!-- Security Content -->
+<div class="flex flex-col gap-6">
+<!-- Password Change Section -->
+<section class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-border-light dark:border-border-dark bg-background-light/50 dark:bg-background-dark/50">
+<h2 class="text-lg font-bold">Password Management</h2>
+<p class="text-sm text-text-sub-light dark:text-text-sub-dark mt-1">Update the password associated with your account.</p>
+</div>
+<div class="p-6 grid gap-6 max-w-2xl">
+<!-- Current Password -->
+<div class="grid gap-2">
+<label class="text-sm font-semibold text-text-main-light dark:text-text-main-dark" for="current-password">Current Password</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-background-light dark:bg-background-dark border-border-light dark:border-border-dark text-text-main-light dark:text-text-main-dark h-11 px-4 focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-text-sub-light/50" id="current-password" placeholder="Enter current password" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-text-sub-light hover:text-text-main-light dark:hover:text-text-main-dark">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<!-- New Password -->
+<div class="grid gap-2">
+<label class="text-sm font-semibold text-text-main-light dark:text-text-main-dark" for="new-password">New Password</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-background-light dark:bg-background-dark border-border-light dark:border-border-dark text-text-main-light dark:text-text-main-dark h-11 px-4 focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-text-sub-light/50" id="new-password" placeholder="Minimum 8 characters" type="password"/>
+</div>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark mt-1">Must be at least 8 characters.</p>
+</div>
+<!-- Confirm Password -->
+<div class="grid gap-2">
+<label class="text-sm font-semibold text-text-main-light dark:text-text-main-dark" for="confirm-password">Confirm New Password</label>
+<div class="relative">
+<input class="w-full rounded-lg bg-background-light dark:bg-background-dark border-border-light dark:border-border-dark text-text-main-light dark:text-text-main-dark h-11 px-4 focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-text-sub-light/50" id="confirm-password" placeholder="Retype new password" type="password"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2FA Section -->
+<section class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-border-light dark:border-border-dark bg-background-light/50 dark:bg-background-dark/50 flex justify-between items-center">
+<div>
+<h2 class="text-lg font-bold">Two-Factor Authentication (2FA)</h2>
+<p class="text-sm text-text-sub-light dark:text-text-sub-dark mt-1">Add an extra layer of security to your account.</p>
+</div>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300">
+                        Disabled
+                    </span>
+</div>
+<div class="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex gap-4">
+<div class="hidden sm:flex size-12 bg-background-light dark:bg-background-dark rounded-full items-center justify-center text-text-sub-light dark:text-text-sub-dark border border-border-light dark:border-border-dark shrink-0">
+<span class="material-symbols-outlined text-2xl">phonelink_lock</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-sm font-semibold text-text-main-light dark:text-text-main-dark">Authenticator App</h3>
+<p class="text-sm text-text-sub-light dark:text-text-sub-dark max-w-md">Secure your account using an authenticator app like Google Authenticator or Authy. You will need to enter a code every time you log in.</p>
+</div>
+</div>
+<!-- Toggle Switch -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer transition-all duration-300" id="toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer transition-colors duration-300" for="toggle"></label>
+</div>
+</div>
+</section>
+<!-- Login Sessions (Optional extra for completeness based on design trends) -->
+<section class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm overflow-hidden">
+<div class="px-6 py-4 border-b border-border-light dark:border-border-dark bg-background-light/50 dark:bg-background-dark/50">
+<h2 class="text-lg font-bold">Active Sessions</h2>
+<p class="text-sm text-text-sub-light dark:text-text-sub-dark mt-1">Devices currently logged into your account.</p>
+</div>
+<div class="divide-y divide-border-light dark:divide-border-dark">
+<div class="p-4 sm:px-6 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl text-text-sub-light dark:text-text-sub-dark">desktop_windows</span>
+<div>
+<p class="text-sm font-semibold">Chrome on macOS</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark">New York, USA • Current Session</p>
+</div>
+</div>
+<span class="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded">Active</span>
+</div>
+<div class="p-4 sm:px-6 flex items-center justify-between opacity-60">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-3xl text-text-sub-light dark:text-text-sub-dark">phone_iphone</span>
+<div>
+<p class="text-sm font-semibold">Safari on iPhone 13</p>
+<p class="text-xs text-text-sub-light dark:text-text-sub-dark">New York, USA • Last active 2 days ago</p>
+</div>
+</div>
+<button class="text-xs font-semibold text-red-500 hover:text-red-600 dark:text-red-400">Revoke</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Sticky Footer -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark p-4 z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end gap-4">
+<button class="px-6 py-2.5 rounded-lg text-sm font-semibold text-text-main-light dark:text-text-main-dark hover:bg-background-light dark:hover:bg-background-dark border border-transparent hover:border-border-light dark:hover:border-border-dark transition-all">
+                Cancel
+            </button>
+<button class="px-6 py-2.5 rounded-lg bg-primary hover:bg-primary-hover text-background-dark text-sm font-bold shadow-md hover:shadow-lg transition-all transform active:scale-95">
+                Save Changes
+            </button>
+</div>
+</div>
+</body></html>

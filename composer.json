@@ -1,0 +1,22 @@
+{
+    "name": "waste2worth/platform",
+    "description": "Waste2Worth Platform - connecting waste collectors and clients.",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "vlucas/phpdotenv": "^5.5",
+        "phpmailer/phpmailer": "^6.8",
+        "monolog/monolog": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Qoder",
+            "email": "qoder@example.com"
+        }
+    ]
+}
