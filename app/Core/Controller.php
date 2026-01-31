@@ -25,7 +25,10 @@ class Controller
 
     protected function redirect($url)
     {
-        header("Location: " . $_ENV['APP_URL'] . $url);
+        $baseUrl = $_ENV['APP_URL'] ?? 'http://localhost/waste2worth';
+        $baseUrl = rtrim($baseUrl, '/');
+        $url = '/' . ltrim($url, '/');
+        header("Location: " . $baseUrl . $url);
         exit;
     }
 }

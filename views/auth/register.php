@@ -13,7 +13,7 @@
         <?php if (isset($error)): ?>
             <p class="text-red-500 text-sm mb-4"><?php echo $error; ?></p>
         <?php endif; ?>
-        <form action="/register" method="POST">
+        <form action="<?php echo ($_ENV['APP_URL'] ?? 'http://localhost/waste2worth'); ?>/register" method="POST">
             <div class="mb-6">
                 <label class="block text-gray-700 text-sm font-bold mb-2">Select Your Role</label>
                 <div class="grid grid-cols-2 gap-4">

@@ -18,7 +18,8 @@ class Router
     public function dispatch($method, $uri)
     {
         $uri = parse_url($uri, PHP_URL_PATH);
-        $appPath = parse_url($_ENV['APP_URL'] ?? '', PHP_URL_PATH);
+        $baseUrl = $_ENV['APP_URL'] ?? 'http://localhost/waste2worth';
+        $appPath = parse_url($baseUrl, PHP_URL_PATH);
         if ($appPath && strpos($uri, $appPath) === 0) {
             $uri = substr($uri, strlen($appPath));
         }

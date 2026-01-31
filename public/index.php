@@ -7,7 +7,7 @@ use App\Core\Router;
 
 // Load environment variables
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->safeLoad();
+$dotenv->load();
 
 // Start session
 session_start();
