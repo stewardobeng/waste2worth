@@ -53,9 +53,15 @@ class AuthController extends Controller
         $email = $_POST['email'] ?? '';
         $phone = $_POST['phone'] ?? '';
         $password = $_POST['password'] ?? '';
+        $confirmPassword = $_POST['confirm_password'] ?? '';
+
+        if ($password !== $confirmPassword) {
+            $this->render('auth/register', ['error' => 'Passwords do not match.', 'old' => $_POST]);
+            return;
+        }
 
         if ($this->userModel->findByEmail($email)) {
-            $this->render('auth/register', ['error' => 'Email already exists.']);
+            $this->render('auth/register', ['error' => 'Email already exists.', 'old' => $_POST]);
             return;
         }
 

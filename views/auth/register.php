@@ -18,12 +18,12 @@
                 <label class="block text-gray-700 text-sm font-bold mb-2">Select Your Role</label>
                 <div class="grid grid-cols-2 gap-4">
                     <label class="cursor-pointer border-2 border-gray-200 rounded-lg p-4 flex flex-col items-center hover:border-green-500 transition-colors peer-checked:border-green-600">
-                        <input type="radio" name="role" value="client" class="hidden peer" checked>
+                        <input type="radio" name="role" value="client" class="hidden peer" <?php echo (isset($old['role']) && $old['role'] === 'client') || !isset($old['role']) ? 'checked' : ''; ?>>
                         <span class="material-symbols-outlined text-3xl mb-2">person</span>
                         <span class="text-sm font-medium">Client</span>
                     </label>
                     <label class="cursor-pointer border-2 border-gray-200 rounded-lg p-4 flex flex-col items-center hover:border-green-500 transition-colors">
-                        <input type="radio" name="role" value="collector" class="hidden peer">
+                        <input type="radio" name="role" value="collector" class="hidden peer" <?php echo isset($old['role']) && $old['role'] === 'collector' ? 'checked' : ''; ?>>
                         <span class="material-symbols-outlined text-3xl mb-2">local_shipping</span>
                         <span class="text-sm font-medium">Collector</span>
                     </label>
@@ -31,15 +31,21 @@
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" value="<?php echo $old['email'] ?? ''; ?>" required>
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Phone Number</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" name="phone" type="tel" required>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" name="phone" type="tel" value="<?php echo $old['phone'] ?? ''; ?>" required>
             </div>
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" required>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm_password">Confirm Password</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="confirm_password" name="confirm_password" type="password" required>
+                </div>
             </div>
             <div class="flex items-center justify-between">
                 <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="submit">
